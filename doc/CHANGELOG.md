@@ -1,24 +1,24 @@
 in/from https://github.com/metaclass-nl/phpfit branche phpUnit3_7
-- added support for PHPUNIT 3.7
-	tests/AllTest110.php
-		line 5 now ../simpletest/ (assumes current directory is the parent folder of the tests folder, like AllTestPhpUnit.php 
+- added support for PHPUNIT 3.7 
+	tests/AllTest110.php 
+		line 5 now ../simpletest/ (assumes current directory is the parent folder of the tests folder, like AllTestPhpUnit.php  
 	tests/AllTestPhpUnit.php 
-		line 4-6 now tries to load PHPUNIT/Autoload.php if it is in the include path
-	tests/UnitTestCase.php
+		line 4-6 now tries to load PHPUNIT/Autoload.php if it is in the include path 
+	tests/UnitTestCase.php 
 		line 11 added parameter $ignoreCase = false
 		line 21-25 added function assertInstanceOf throws Exception
 		line 28-30 added call to assertInstanceOf if it exists on parent class, otherwise assertType is called
-	tests/runAllTestPhpUnit.php added comment on alternatively using phpunit on the CLI
-	tests/ParseTest.php factored out exceptionDuringParseTest from most methods
+	tests/runAllTestPhpUnit.php added comment on alternatively using phpunit on the CLI 
+	tests/ParseTest.php factored out exceptionDuringParseTest from most methods 
 		::exceptionDuringParseTest rethrows exception for PHPUNIT 3.7 and SimpleTest 1.1. 
-			improved reporting for Simpletest 1.0.
+			improved reporting for Simpletest 1.0. 
 			PHPUNIT 3.7 does not report properly and does not run any more tests after die() occurs. 
-- corrected some tests
-	tests/FrameworkTest.php
+- corrected some tests 
+	tests/FrameworkTest.php 
 		line 56 replaced $f->name by $f->sampleBoolean 
 		
 in/from https://github.com/metaclass-nl/phpfit branche fixtureNameSpacedAutoLoading
-- added support for autoloading name spaced fixture classes (requires external classloader like the one from Composer)
+- added support for autoloading name spaced fixture classes (requires external classloader like the one from Composer) 
 	PHPFIT/FixtureLoader.php line 64-68 if class_exists(fully qualfied class name) (triggers autoloading), returns new instance 
 
 in/from https://github.com/metaclass-nl/phpfit master
