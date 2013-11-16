@@ -53,7 +53,7 @@ class FrameworkTest extends UnitTestCase {
         $a = PHPFIT_TypeAdapter::on($f, "sampleBoolean", $f, 'field');
         $a->set($a->parse("true"));
         $this->assertTrue(is_bool($a->parse("true")));
-        $this->assertEqual(true, $f->name);
+        $this->assertEqual(true, $f->sampleBoolean);
 
         // TODO: Arrays and Dates
 

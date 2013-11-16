@@ -13,7 +13,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual('trailer', $p->trailer);	
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -34,7 +34,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual("body",$p->parts->parts->body);
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -57,7 +57,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual('three', $p->parts->parts->more->more->body);
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -71,7 +71,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual($cont, $p->toString());
         }
         catch( Exception $e ) {
-            die( 'testArithmeticFromFile: ' . $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -93,7 +93,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual("four", $p->parts->last()->leaf()->body);
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -145,7 +145,7 @@ class ParseTest extends UnitTestCase {
 
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -158,7 +158,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual("\"\"'", PHPFIT_Parse::unescape("<93><94><92>"));
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -174,10 +174,21 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual("à b", PHPFIT_Parse::condenseWhitespace(" à  b  "));
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
+    private function exceptionDuringParseTest($e) {
+        // PHPUnit 3.7 throws PHPUnit_Framework_ExpectationFailedException 
+        // and after die() does not report properly and does not run any more tests.
+        // disadvantage of catching exceptions with PHPUnit 3.7: no more assertions are executed after one failed  
+        if (class_exists('PHPUnit_Framework_Exception') || class_exists('SimpleExceptionTrap') ){ 
+            throw $e; //rethrow so that the testing framework can catch it
+        } else {  // SimpleTest 1.0 seems not to handle exceptions 
+            die(get_class($e).  ' on line: '. $e->getLine(). ' of file '. $e->getFile(). ': '. $e->getMessage()  );
+        }
+    }    
+    
     public function testAddToTag() {
         try{
             $p = PHPFIT_Parse::create('leader<Table foo=2>body</table>trailer', array('table'));
@@ -185,7 +196,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual("<Table foo=2 bgcolor=\"#cfffcf\">", $p->tag);
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 
@@ -198,7 +209,7 @@ class ParseTest extends UnitTestCase {
             $this->assertEqual('trailer', $p->trailer);
         }
         catch( Exception $e ) {
-            die( $e->getMessage() );
+            $this->exceptionDuringParseTest($e);
         }
     }
 

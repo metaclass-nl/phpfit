@@ -1,6 +1,9 @@
 <?php
 error_reporting(E_ALL | E_STRICT);
 set_include_path(dirname(dirname(__FILE__)) . PATH_SEPARATOR . get_include_path());
+require_once 'PHPFIT/Fixture.php';
+if (PHPFIT_Fixture::fc_incpath('is_readable', 'PHPUNIT/Autoload.php'))
+    include_once('PHPUNIT/Autoload.php');
 require_once 'tests/UnitTestCase.php';
 
 class AllTestPhpUnit

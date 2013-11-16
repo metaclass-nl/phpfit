@@ -9,3 +9,7 @@ $result = $runner->doRun($suite);
 if (error_reporting() !== (E_ALL | E_STRICT)) {
     echo "Warning: E_STRICT compliance was turned off during tests.\n";
 }
+
+//alternatively in the cli:
+//cd to the parent directory of 'tests'
+//phpunit --tap AllTestPhpUnit tests/AllTestPhpUnit.php
